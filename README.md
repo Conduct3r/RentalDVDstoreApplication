@@ -1,0 +1,2 @@
+# RentalDVDstoreApplication
+The program should be able to perform the following operations: Rent a DVD ; that is, check out a DVD . Return, or check in ,a DVD Create a list of DVDs owned by the store Show the details of a particular DVD Print a list of all of the DVDs in the store Maintain a customer database :  File / ArrayList/List/Set/Map Print a list of all of the DVDs rented by each customer Test all your APIs in a client program.
