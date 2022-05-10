@@ -1,0 +1,81 @@
+package rentalDVDstore;
+/* This program will emulate the actions of an online rental DVD store 
+ * 
+ */
+
+import java.util.ArrayList;
+import java.util.Scanner;
+public class DVDrental {
+
+	public static void main(String[] args) {
+		//creating arrayList for customers 
+		
+		//Creating list of movies
+		ArrayList<String> movies = new ArrayList<String>();
+		
+		//Creating list of rented movies
+		ArrayList<String> moviesRented = new ArrayList<String>();
+		
+		//populating arrayList with movies 
+		movies.add(0, " 0 - Nightmare on Elm street: Horror\n");
+		movies.add(1," 1 - Finding Nemo: Children's Film\n");
+		movies.add(2," 2 - Top Gun: Action\n");
+		movies.add(3," 3 - The Matrix: Sci-Fi\n");
+		movies.add(4," 4 - Rush hour: Action/Comedy\n");
+		movies.add(5," 5 - Limitless: Action/Thriller\n");
+		movies.add(6, " 6 - Over the Hedge: Children's Film\n");
+		movies.add(7, " 7 - The Godfather: Action/Violence\n");
+		movies.add(8, " 8 - Diary of a Wimpy kid: Adventure/Children's Film\n");
+		movies.add(9, " 9 - Stuart Little: Adventure/Children's Film\n");
+		movies.add(10, " 10 - Titanic: Disaster/Romance\n");
+		movies.add(11, " 11 - Four Brothers: Action/Violence\n");
+		
+		
+		//Declare scanner to store user input
+		Scanner userInput = new Scanner(System.in);
+		
+		//Ask user for their name
+			System.out.println("Please enter your name :");
+			String userName = userInput.nextLine();
+		
+		//declaring the main menu
+			String MainMenu = " \nWelcome to my DVD rental store!\n"
+					+ "to rent a DVD, press one\n"
+					+ "to return a DVD, press zero";
+			
+		System.out.println("Hey " + userName + MainMenu);
+		
+		//Storing their response between 0-1 & DVD # returned or selected
+			int CustomerChoice = userInput.nextInt();
+			int DVDnum = 0;
+		
+		//creating if else statement for customer response
+			if(CustomerChoice == 1) {
+				System.out.println("Our movie selection \n" + movies);
+				
+				//input from user for a specific DVD #
+				DVDnum = userInput.nextInt();	
+				
+				System.out.println("You have selected :" + movies.get(DVDnum)
+				+ "\n Thank you! ");
+				
+				//removing movie checked out arrayList movie & adding it to moviesRented 
+				moviesRented.add(11,movies.get(DVDnum));
+				movies.remove(DVDnum);
+				
+
+			}
+			else if(CustomerChoice == 0) {
+				System.out.println();
+			
+			}
+
+		
+		
+
+	System.out.println(movies);
+	System.out.println(moviesRented);
+
+}
+}
+
