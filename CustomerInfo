@@ -1,0 +1,22 @@
+package rentalDVDstore;
+
+public class CustomerInfo {
+	
+	private String name;
+	private int NumberOfDVDsRented = 0;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getNumberOfDVDsRented() {
+		return NumberOfDVDsRented;
+	}
+	public void setNumberOfDVDsRented(int numberOfDVDsRented) {
+		NumberOfDVDsRented = numberOfDVDsRented;
+	}
+
+
+	
+}
