@@ -1,15 +1,16 @@
 package rentalDVDstore;
-/* This program will emulate the actions of an online rental DVD store 
+/* This program will emulate the actions of an online rental DVD store
  * 
  */
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
-public class DVDrental {
 
-	public static void main(String[] args) {
-		//creating arrayList for customers 
-		
+public class DVDrental {
+	
+
+	public static void main(String[] args) {	
 		//Creating list of movies
 		ArrayList<String> movies = new ArrayList<String>();
 		
@@ -17,65 +18,110 @@ public class DVDrental {
 		ArrayList<String> moviesRented = new ArrayList<String>();
 		
 		//populating arrayList with movies 
-		movies.add(0, " 0 - Nightmare on Elm street: Horror\n");
-		movies.add(1," 1 - Finding Nemo: Children's Film\n");
-		movies.add(2," 2 - Top Gun: Action\n");
-		movies.add(3," 3 - The Matrix: Sci-Fi\n");
-		movies.add(4," 4 - Rush hour: Action/Comedy\n");
-		movies.add(5," 5 - Limitless: Action/Thriller\n");
-		movies.add(6, " 6 - Over the Hedge: Children's Film\n");
-		movies.add(7, " 7 - The Godfather: Action/Violence\n");
-		movies.add(8, " 8 - Diary of a Wimpy kid: Adventure/Children's Film\n");
-		movies.add(9, " 9 - Stuart Little: Adventure/Children's Film\n");
-		movies.add(10, " 10 - Titanic: Disaster/Romance\n");
-		movies.add(11, " 11 - Four Brothers: Action/Violence\n");
+		movies.add("Nightmare on Elm street: Horror\n");
+		movies.add("Finding Nemo: Children's Film\n");
+		movies.add("Top Gun: Action\n");
+		movies.add("The Matrix: Sci-Fi\n");
+		movies.add("Rush hour: Action/Comedy\n");
+		movies.add("Limitless: Action/Thriller\n");
+		movies.add("Over the Hedge: Children's Film\n");
+		movies.add("The Godfather: Action/Violence\n");
+		movies.add("Diary of a Wimpy kid: Adventure/Children's Film\n");
+		movies.add("Stuart Little: Adventure/Children's Film\n");
+		movies.add("Titanic: Disaster/Romance\n");
+		movies.add("Four Brothers: Action/Violence\n");
+		movies.add("The Batman: Action/Violence\n");
+		movies.add("Avengers-Endgame: Action/Superhero\n");
 		
 		
 		//Declare scanner to store user input
 		Scanner userInput = new Scanner(System.in);
 		
-		//Ask user for their name
-			System.out.println("Please enter your name :");
-			String userName = userInput.nextLine();
+		System.out.println("Please enter your name :");//Ask user for their name
+		String userName = userInput.nextLine();
+		
+		CustomerInfo ClientName1 = new CustomerInfo(); //Making a new Client 
+		ClientName1.setName(userName); //setting client name 
 		
 		//declaring the main menu
-			String MainMenu = " \nWelcome to my DVD rental store!\n"
-					+ "to rent a DVD, press one\n"
-					+ "to return a DVD, press zero";
+		String MainMenu = " \nWelcome to my DVD rental store!\n"
+					+ "to rent a DVD, press 1\n"
+					+ "to return a DVD, press 0";
 			
 		System.out.println("Hey " + userName + MainMenu);
 		
-		//Storing their response between 0-1 & DVD # returned or selected
-			int CustomerChoice = userInput.nextInt();
-			int DVDnum = 0;
-		
-		//creating if else statement for customer response
-			if(CustomerChoice == 1) {
-				System.out.println("Our movie selection \n" + movies);
-				
-				//input from user for a specific DVD #
-				DVDnum = userInput.nextInt();	
-				
-				System.out.println("You have selected :" + movies.get(DVDnum)
-				+ "\n Thank you! ");
-				
-				//removing movie checked out arrayList movie & adding it to moviesRented 
-				moviesRented.add(11,movies.get(DVDnum));
-				movies.remove(DVDnum);
-				
-
-			}
-			else if(CustomerChoice == 0) {
-				System.out.println();
+		int DVDnum = 0; //declaring integer for DVD #
+		try {
+		int CustomerChoice = userInput.nextInt(); //storing user input
 			
+		//creating a while loop with if else statement for customer response
+		while(CustomerChoice != 1 || CustomerChoice != 0) {
+				
+		if(CustomerChoice == 1) {
+			System.out.println("To select a movie, enter a number starting from zero(the first movie)\n"
+						+ "from our current list :)"
+						+"Our movie selection\n" + movies);
+				
+		DVDnum = userInput.nextInt();//input from user for a specific DVD #	
+				
+		System.out.println("You have selected, " + movies.get(DVDnum));
+			
+		//saves movie title in a string to locate later
+		String chosenMovieTitle = movies.get(DVDnum);
+				
+		//removing movie checked out arrayList movie & adding it to moviesRented 
+		moviesRented.add(movies.get(DVDnum));
+		movies.remove(DVDnum);
+			
+		//Giving return number for movie rented
+		System.out.println("your return number is " + moviesRented.indexOf(chosenMovieTitle)
+				+"\n Thank you! ");
+				
+		ClientName1.setNumberOfDVDsRented(+1); //adding one more movie being rented
+		break;
 			}
+		else if(CustomerChoice == 0) {
+			System.out.println("Enter the return number of the movie: ");
+		
+		int ReturningDVD = userInput.nextInt();//storing user input
+				if(ReturningDVD >= 0) {
+					
+					System.out.println("Thank you for returning " + moviesRented.get(ReturningDVD) 
+					+"\nHope to see you again soon! :)");
+					
+					//returning the movie back into the arrayList and removing it from the rented arrayList
+					movies.add(moviesRented.get(ReturningDVD));
+					moviesRented.remove(ReturningDVD);
+					
+					ClientName1.setNumberOfDVDsRented(-1);//removing the movie rented from total
+					}
+		break;
+			}
+		else {
+		System.out.println("Sorry, that doesn't look like a 0 or 1 , try again :)");
+		System.out.println(MainMenu);
+		CustomerChoice = userInput.nextInt();//asking for correct customer input
+		continue; //restarting the loop
+			}
+				}
 
+			}
+		catch(InputMismatchException m) {
+				System.out.println("You entered an invalid input, please restart the program: " 
+						+ m); //anything other than an integer will get caught here if entered
+			}
+		catch(IndexOutOfBoundsException o) {
+				System.out.println("The input you entered isn't in our system: " + o);
+			}
+		finally {
+				System.out.println("\n Please come visit again soon!");
+			}
 		
 		
 
-	System.out.println(movies);
-	System.out.println(moviesRented);
+
+		System.out.println(ClientName1.getName() + " has rented " + ClientName1.getNumberOfDVDsRented() 
+		+ " movie(s)");
 
 }
 }
-
